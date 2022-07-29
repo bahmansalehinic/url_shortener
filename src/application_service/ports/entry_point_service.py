@@ -20,3 +20,15 @@ def create_shorten_url(long_url):
     url.create_short_url()
     url.save(repository)
     return str(url)
+
+
+def find_url(url):
+    url_obj = repository.get(url)
+    if url_obj:
+        return {'short_url': url_obj.short_url}
+    else:
+        url_obj = repository.get_by_short_url(url)
+        if url_obj:
+            return {'long_url': url_obj.long_url}
+    raise UrlDoesNotExist(url)
+

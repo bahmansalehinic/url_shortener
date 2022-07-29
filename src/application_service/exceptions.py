@@ -22,3 +22,9 @@ class InvalidDomain(ApplicationError):
         self.message = f'url must be in {BASE_URL} domain, ' \
                        f'invalid url: {url}'
         super(InvalidDomain, self).__init__(self.message)
+
+
+class UrlDoesNotExist(ApplicationError):
+    def __init__(self, url: str):
+        self.message = f'{url} is not a short nor a long saved url'
+        super(UrlDoesNotExist, self).__init__(self.message)

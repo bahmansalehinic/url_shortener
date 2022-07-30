@@ -2,10 +2,13 @@ from src.application_service.ports.db_service import handle_orm_type
 from src.doiman.url import Url
 from src.application_service.exceptions import *
 from src.config import MIN_URL_LENGTH
+import webbrowser
 
 repository = handle_orm_type()
 
-valid_domain_set = {'https://tier.app', 'www.tier.app', 'tier.app', 'https://www.tier.app'}
+valid_domain_set = {'https://tier.app', 'https://www.tier.app',
+                    'tier.app', 'www.tier.app',
+                    'http://tier.app', 'http://www.tier.app'}
 
 
 def create_shorten_url(long_url):
@@ -19,16 +22,25 @@ def create_shorten_url(long_url):
     url = Url(long_url)
     url.create_short_url()
     url.save(repository)
-    return str(url)
+    return url.to_dict()
 
 
 def find_url(url):
     url_obj = repository.get(url)
-    if url_obj:
-        return {'short_url': url_obj.short_url}
-    else:
+    if not url_obj:
         url_obj = repository.get_by_short_url(url)
-        if url_obj:
-            return {'long_url': url_obj.long_url}
+    if url_obj:
+        return url_obj.to_dict()
     raise UrlDoesNotExist(url)
 
+
+def visit(url):
+    url_obj = repository.get_by_short_url(url)
+    if not url_obj:
+        raise UrlDoesNotExist(url)
+    url_obj.visits += 1
+    url_obj.save(repository)
+    long_url = url_obj.to_dict()['long_url']
+    if not any({long_url.startswith(v) for v in {'http://', 'https://'}}):
+        long_url = 'https://' + long_url
+    return long_url

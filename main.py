@@ -1,7 +1,7 @@
 from src.config import AppSettings, Config
-from flask import Flask, request, jsonify
-from src.application_service.exceptions import *
+from flask import Flask, request, jsonify, redirect
 from src.application_service.ports.entry_point_service import *
+from src.entry_point.utils import is_from_browser
 
 app = Flask(__name__)
 
@@ -29,6 +29,21 @@ def get_url(url):
         return {'error': str(err)}, 400
     except Exception as err:
         return {'error': str(err)}, 500
+
+
+@app.route('/<path:url>', methods=['GET'])
+def visit_url(url):
+    try:
+        data = visit(url)
+        if is_from_browser(request.user_agent):
+            return redirect(data, 302)
+        else:
+            return webbrowser.open(data)
+    except ApplicationError as err:
+        return {'error': str(err)}, 400
+    except Exception as err:
+        return {'error': str(err)}, 500
+
 
 if __name__ == '__main__':
     app.run(host=AppSettings.host, port=AppSettings.port)

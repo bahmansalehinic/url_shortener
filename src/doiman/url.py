@@ -10,12 +10,12 @@ class Url:
         self.visits = 0
 
     def create_short_url(self):
-        self.short_url = BASE_URL + str(shortuuid.uuid()[:5])
+        self.short_url = str(shortuuid.uuid()[:5])
 
     def save(self, url_repository):
         return url_repository.add(self)
 
-    def __str__(self):
-        return json.dumps({'long_url': self.long_url,
+    def to_dict(self):
+        return {'long_url': self.long_url,
                 'short_url': self.short_url,
-                'visits': self.visits})
+                'visits': self.visits}

@@ -4,6 +4,6 @@ import requests
 # print(res.json())
 # print(res.status_code)
 
-res = requests.get(url='http://127.0.0.1:4000/89UYW')
+res = requests.get(url='http://127.0.0.1:4000/url/89UYlW')
 print(res.status_code)
 print(res.json())

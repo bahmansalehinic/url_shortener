@@ -26,5 +26,5 @@ class InvalidDomain(ApplicationError):
 
 class UrlDoesNotExist(ApplicationError):
     def __init__(self, url: str):
-        self.message = f'{url} is not a short nor a long saved url'
+        self.message = f'{url} is not a saved url'
         super(UrlDoesNotExist, self).__init__(self.message)

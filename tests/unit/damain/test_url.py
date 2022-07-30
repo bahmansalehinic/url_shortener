@@ -14,7 +14,7 @@ class FakeRepository(AbstractRepository):
         return url
 
     def get(self, url:str) -> Url:
-        return self.get_by_long_url()
+        return self.get_by_long_url(url)
 
     def get_by_long_url(self, long_url: str) -> Url:
         return next((u for u in self._urls if u.long_url == long_url), None)
@@ -27,7 +27,18 @@ class FakeRepository(AbstractRepository):
         if url_retrieved:
             self._urls.remove(url_retrieved)
 
+
 class TestUrl(TestCase):
     def setUp(self) -> None:
+        self.repository = FakeRepository()
         self.url = Url('www.tier.app')
+
+    def test_url_initialised(self):
+        self.assertIsInstance(self.url, Url)
+        self.assertEqual(self.url.long_url, 'www.tier.app')
+        self.assertIsNone(self.url.short_url)
+
+    def test_url_create_short_url(self):
+        pass
+
 

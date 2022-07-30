@@ -2,7 +2,7 @@ import shortuuid
 
 
 class Url:
-    def __init__(self, long_url, short_url=None):
+    def __init__(self, long_url: str, short_url=None):
         self.long_url = long_url
         self.short_url = short_url
         self.visits = 0

@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, redirect
 from src.application_service.ports.entry_point_service import *
 from src.entry_point.utils import is_from_browser
 from src.application_service.decorators import url_error_handler
+import webbrowser
 
 app = Flask(__name__)
 
@@ -40,8 +41,8 @@ def visit_url(url):
     if is_from_browser(request.user_agent):
         return redirect(data, 302)
     else:
-        webbrowser.open(data)
-        return jsonify(f'a web browser is opened for {data}'), 200
+        return webbrowser.open(data)
+        #return jsonify(f'a web browser is opened for {data}'), 200
 
 
 @app.route('/url', methods=['DELETE'], endpoint='delete_url')

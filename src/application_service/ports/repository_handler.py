@@ -4,7 +4,7 @@ from src.adaptors.orm import start_mappers
 from src.config import get_orm_type
 
 
-def handle_orm_type():
+def handle_repository_type():
     orm_type = get_orm_type()
     handler = ORM_TYPE_HANDLER[orm_type]
     repository = handler()

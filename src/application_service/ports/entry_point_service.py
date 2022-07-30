@@ -54,9 +54,9 @@ def modify(url, new_url, repository_=repository):
     return url_obj.to_dict()
 
 
-def delete(url):
-    url_obj = repository.get(url)
+def delete(url, repository_=repository):
+    url_obj = repository_.get(url)
     if not url_obj:
         raise UrlDoesNotExist(url)
-    repository.delete(url_obj)
+    repository_.delete(url_obj)
     return {'delete': f"url: {url} deleted successfully"}

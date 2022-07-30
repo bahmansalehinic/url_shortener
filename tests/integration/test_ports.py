@@ -45,6 +45,16 @@ class TestPorts(TestCase):
         visit(self.long_url, self.repository)
         self.assertEqual(list(self.repository.all())[0].visits, 2)
 
+    def test_delete_url(self):
+        url_dict = create_shorten_url(self.long_url, self.repository)
+        res_url_dict = find_url(self.long_url, self.repository)
+        self.assertIsNotNone(res_url_dict)
+        delete(url_dict['long_url'], self.repository)
+        with self.assertRaises(UrlDoesNotExist):
+            res_url_dict = find_url(self.long_url, self.repository)
+            self.assertDictEqual(url_dict, res_url_dict)
+
     def tearDown(self) -> None:
         self.repository = None
         self.long_url = None
+

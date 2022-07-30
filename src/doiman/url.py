@@ -1,6 +1,7 @@
 import shortuuid
 from src.config import SHORT_URL_LENGTH
 
+
 class Url:
     def __init__(self, long_url: str, short_url=None):
         self.long_url = long_url

@@ -5,9 +5,14 @@ from src.entry_point.utils import is_from_browser
 from src.application_service.decorators import url_error_handler
 import webbrowser
 
-app = Flask(__name__)
 
-app.config.from_object(Config)
+def create_app():
+    app_ = Flask(__name__)
+    app_.config.from_object(Config)
+    return app_
+
+
+app = create_app()
 
 
 @app.route('/url', methods=['POST'], endpoint='shorten_url')

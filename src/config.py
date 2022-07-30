@@ -6,6 +6,10 @@ class AppSettings:
     port = os.getenv('PORT') or 4000
 
 
+def get_api_url():
+    return f"http://{AppSettings.host}:{AppSettings.port}"
+
+
 def get_postgres_uri():
     host = os.environ.get("DB_HOST", "localhost")
     port = 5432 if host == "localhost" else 5432

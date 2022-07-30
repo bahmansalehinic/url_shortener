@@ -36,10 +36,11 @@ class SqlAlchemyRepository(AbstractRepository):
     def get(self, url) -> Url:
         return self.get_by_long_url(url)
 
-    def delete(self, url):
-        url_obj=self.session.query(Url).filter_by(long_url=url).first()
-        self.session.delete(url_obj)
-        self.session.commit()
+    def delete(self, url_obj):
+        #url_obj=self.session.query(Url).filter_by(long_url=url).first()
+        if url_obj:
+            self.session.delete(url_obj)
+            self.session.commit()
 
     def get_by_long_url(self, long_url) -> Url:
         return self.session.query(Url).filter_by(long_url=long_url).first()

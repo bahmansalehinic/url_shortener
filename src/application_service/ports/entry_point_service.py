@@ -59,5 +59,5 @@ def delete(url):
     url_obj = repository.get(url)
     if not url_obj:
         raise UrlDoesNotExist(url)
-    repository.delete(url)
+    repository.delete(url_obj)
     return {'delete': f"url: {url} deleted successfully"}

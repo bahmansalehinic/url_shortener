@@ -1,6 +1,7 @@
 from src.config import BASE_URL
 from uuid import uuid4
 import pytest
+from sqlalchemy.orm import clear_mappers
 
 
 @pytest.fixture()
@@ -15,7 +16,7 @@ def test_api(client, random_valid_url):
     assert res.status_code == 400
 
     # asserting post creates a valid random url
-    res = client.post('/url', json={'url':random_valid_url})
+    res = client.post('/url', json={'url': random_valid_url})
     assert res.status_code == 201
 
     # asserting get can retrieve a saved url
@@ -29,3 +30,6 @@ def test_api(client, random_valid_url):
     # assert it is not found by the get method
     res = client.get('/url/' + random_valid_url)
     assert res.status_code == 400
+
+    clear_mappers()
+

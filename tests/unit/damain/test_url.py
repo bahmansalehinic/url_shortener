@@ -1,31 +1,7 @@
 from src.doiman.url import Url
-from src.adaptors.repository import AbstractRepository
-from typing import Set
 from unittest import TestCase
-
-
-class FakeRepository(AbstractRepository):
-    def __init__(self):
-        super(FakeRepository, self).__init__()
-        self._urls: Set[Url] = set()
-
-    def add(self, url:Url) -> Url:
-        self._urls.add(url)
-        return url
-
-    def get(self, url:str) -> Url:
-        return self.get_by_long_url(url)
-
-    def get_by_long_url(self, long_url: str) -> Url:
-        return next((u for u in self._urls if u.long_url == long_url), None)
-
-    def get_by_short_url(self, short_url: str) -> Url:
-        return next((u for u in self._urls if u.long_url == short_url), None)
-
-    def delete(self, url: Url):
-        url_retrieved = next((u for u in self._urls if u == url), None)
-        if url_retrieved:
-            self._urls.remove(url_retrieved)
+from src.config import SHORT_URL_LENGTH
+from tests.fake_repository import FakeRepository
 
 
 class TestUrl(TestCase):
@@ -39,6 +15,14 @@ class TestUrl(TestCase):
         self.assertIsNone(self.url.short_url)
 
     def test_url_create_short_url(self):
-        pass
+        self.url.create_short_url()
+        self.assertIsNotNone(self.url.short_url)
+        self.assertEqual(len(self.url.short_url), SHORT_URL_LENGTH)
+
+    def test_url_save(self):
+        self.url.save(self.repository)
+        self.assertIsNotNone(self.repository.all())
+        self.assertEqual(len(self.repository.all()), 1)
+        self.assertIn(self.url, self.repository.all())
 
 

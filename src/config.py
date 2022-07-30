@@ -31,4 +31,5 @@ def get_orm_type():
 
 BASE_URL = 'https://www.tier.app/'
 
-MIN_URL_LENGTH = 5
+MIN_URL_LENGTH = 6
+SHORT_URL_LENGTH = 4

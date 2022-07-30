@@ -1,5 +1,5 @@
 import shortuuid
-
+from src.config import SHORT_URL_LENGTH
 
 class Url:
     def __init__(self, long_url: str, short_url=None):
@@ -8,7 +8,7 @@ class Url:
         self.visits = 0
 
     def create_short_url(self):
-        self.short_url = str(shortuuid.uuid()[:5])
+        self.short_url = str(shortuuid.uuid()[:SHORT_URL_LENGTH])
 
     def save(self, url_repository):
         return url_repository.add(self)

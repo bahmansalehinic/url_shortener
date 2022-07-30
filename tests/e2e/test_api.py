@@ -50,7 +50,6 @@ def test_api_put_creates_valid(client, random_valid_url):
     clear_mappers()
 
 
-
 def test_api_deletes_url(client, random_valid_url):
     start_mappers()
     res = client.post('/url', json={'url': random_valid_url})

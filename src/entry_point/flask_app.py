@@ -47,7 +47,6 @@ def visit_url(url):
         return redirect(data, 302)
     else:
         return webbrowser.open(data)
-        #return jsonify(f'a web browser is opened for {data}'), 200
 
 
 @app.route('/url', methods=['DELETE'], endpoint='delete_url')

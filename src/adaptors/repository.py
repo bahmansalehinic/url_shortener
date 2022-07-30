@@ -37,7 +37,6 @@ class SqlAlchemyRepository(AbstractRepository):
         return self.get_by_long_url(url)
 
     def delete(self, url_obj):
-        #url_obj=self.session.query(Url).filter_by(long_url=url).first()
         if url_obj:
             self.session.delete(url_obj)
             self.session.commit()

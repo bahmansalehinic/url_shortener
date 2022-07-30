@@ -7,7 +7,7 @@ class ApplicationError(Exception):
 
 class UrlAlreadyExists(ApplicationError):
     def __init__(self, url: str):
-        self.message = f'url: {url} already exists use put to update'
+        self.message = f'url: {url} already exists, use put for if you wan to update'
         super(UrlAlreadyExists, self).__init__(self.message)
 
 

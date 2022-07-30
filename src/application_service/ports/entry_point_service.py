@@ -44,3 +44,12 @@ def visit(url):
     if not any({long_url.startswith(v) for v in {'http://', 'https://'}}):
         long_url = 'https://' + long_url
     return long_url
+
+
+def modify(url, new_url):
+    url_obj = repository.get(url)
+    if not url_obj:
+        raise UrlDoesNotExist(url)
+    url_obj.long_url = new_url
+    url_obj.save(repository)
+    return url_obj.to_dict()

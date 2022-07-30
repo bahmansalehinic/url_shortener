@@ -8,7 +8,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get(self, url) -> Url: # the default is by long_url
+    def get(self, url) -> Url:  # the default is by long_url
         raise NotImplementedError
 
     @abc.abstractmethod

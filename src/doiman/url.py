@@ -1,6 +1,4 @@
-from src.config import BASE_URL
 import shortuuid
-import json
 
 
 class Url:

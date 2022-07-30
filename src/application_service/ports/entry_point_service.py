@@ -53,3 +53,11 @@ def modify(url, new_url):
     url_obj.long_url = new_url
     url_obj.save(repository)
     return url_obj.to_dict()
+
+
+def delete(url):
+    url_obj = repository.get(url)
+    if not url_obj:
+        raise UrlDoesNotExist(url)
+    repository.delete(url)
+    return {'delete': f"url: {url} deleted successfully"}

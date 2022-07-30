@@ -12,6 +12,10 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
+    def delete(self, url):  # url is the long_url
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def get_by_long_url(self, long_url) -> Url:
         raise NotImplementedError
 
@@ -31,6 +35,11 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def get(self, url) -> Url:
         return self.get_by_long_url(url)
+
+    def delete(self, url):
+        url_obj=self.session.query(Url).filter_by(long_url=url).first()
+        self.session.delete(url_obj)
+        self.session.commit()
 
     def get_by_long_url(self, long_url) -> Url:
         return self.session.query(Url).filter_by(long_url=long_url).first()

@@ -27,7 +27,7 @@ def shorten_url():
 @url_error_handler
 def update_url():
     long_url = request.json['url']
-    new_long_url = request.json['new_url']
+    new_long_url = request.json.get('new_url', None)
     data = modify(long_url, new_long_url)
     return jsonify(data), 201
 

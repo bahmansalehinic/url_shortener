@@ -48,7 +48,10 @@ def visit(url, repository_=repository):
 def modify(url, new_url, repository_=repository):
     url_obj = repository_.get(url)
     if not url_obj:
-        raise UrlDoesNotExist(url)
+        url_dict = create_shorten_url(url)
+        url_obj = repository_.get(url_dict['long_url'])
+        url_obj.save(repository_)
+        return url_obj.to_dict()
     url_obj.long_url = new_url
     url_obj.save(repository_)
     return url_obj.to_dict()

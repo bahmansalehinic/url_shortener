@@ -1,4 +1,4 @@
-from src.application_service.exceptions import ApplicationError
+from src.service_layer.exceptions import ApplicationError
 
 
 def url_error_handler(func):

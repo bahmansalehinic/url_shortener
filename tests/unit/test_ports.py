@@ -1,7 +1,7 @@
 from unittest import TestCase
-from src.application_service.ports.entry_point_service import *
+from src.service_layer.application_service import *
 from tests.fake_repository import FakeRepository
-from src.application_service.exceptions import *
+from src.service_layer.exceptions import *
 
 
 class TestPorts(TestCase):

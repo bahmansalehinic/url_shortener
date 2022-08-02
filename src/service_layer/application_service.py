@@ -1,6 +1,6 @@
-from src.application_service.ports.repository_handler import handle_repository_type
+from src.service_layer.repository_handler import handle_repository_type
 from src.doiman.url import Url
-from src.application_service.exceptions import *
+from src.service_layer.exceptions import *
 from src.config import MIN_URL_LENGTH
 
 repository = handle_repository_type()
@@ -20,7 +20,7 @@ def create_shorten_url(long_url, repository_=repository):
 
     url = Url(long_url)
     url.create_short_url()
-    url.save(repository_)
+    repository_.add(url)
     return url.to_dict()
 
 
@@ -38,7 +38,7 @@ def visit(url, repository_=repository):
     if not url_obj:
         raise UrlDoesNotExist(url)
     url_obj.visits += 1
-    url_obj.save(repository_)
+    repository_.add(url_obj)
     long_url = url_obj.to_dict()['long_url']
     if not any({long_url.startswith(v) for v in {'http://', 'https://'}}):
         long_url = 'https://' + long_url
@@ -50,10 +50,10 @@ def modify(url, new_url, repository_=repository):
     if not url_obj:
         url_dict = create_shorten_url(url)
         url_obj = repository_.get(url_dict['long_url'])
-        url_obj.save(repository_)
+        repository_.add(url_obj)
         return url_obj.to_dict()
     url_obj.long_url = new_url
-    url_obj.save(repository_)
+    repository_.add(url_obj)
     return url_obj.to_dict()
 
 

@@ -20,7 +20,7 @@ class TestUrl(TestCase):
         self.assertEqual(len(self.url.short_url), SHORT_URL_LENGTH)
 
     def test_url_save(self):
-        self.url.save(self.repository)
+        self.repository.add(self.url)
         self.assertIsNotNone(self.repository.all())
         self.assertEqual(len(self.repository.all()), 1)
         self.assertIn(self.url, self.repository.all())

@@ -1,8 +1,8 @@
 from src.config import AppSettings, Config
 from flask import Flask, request, jsonify, redirect
-from src.application_service.ports.entry_point_service import *
+from src.service_layer.application_service import *
 from src.entry_point.utils import is_from_browser
-from src.application_service.decorators import url_error_handler
+from src.service_layer.decorators import url_error_handler
 import webbrowser
 
 

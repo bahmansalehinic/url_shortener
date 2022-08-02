@@ -1,4 +1,4 @@
-from src.application_service.sqlalchemy_db import engine
+from src.service_layer.sqlalchemy_db import engine
 from sqlalchemy.orm import registry
 from src.doiman.url import Url
 from sqlalchemy import (

@@ -1,5 +1,5 @@
 from src.adaptors.repository import SqlAlchemyRepository
-from src.application_service.sqlalchemy_db import DEFAULT_SESSION_MAKER
+from src.service_layer.sqlalchemy_db import DEFAULT_SESSION_MAKER
 from src.adaptors.orm import start_mappers
 from src.config import get_orm_type
 

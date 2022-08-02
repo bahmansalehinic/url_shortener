@@ -1,8 +1,7 @@
 
 ### Design
 
-The design is hexagonal, in three layers, using adaptors and 
-ports to decouple the layers and the infrastructure, there is no
+The design is hexagonal, in three layers, using adaptors to decouple the layers and the infrastructure, there is no
 sign of the framework and orm in the domain. I have used the repository
 pattern to isolate the domain from other layers.
 
